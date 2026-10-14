@@ -6,113 +6,149 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=PT+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one reading column; on wide screens section labels sit in a left margin, like a ledger */
+/* Layout: wide hero, then sections on a 12-col feel; cards only for systems, docs and side projects */
 :root {
-  --bg: #f1efe9;
-  --surface: #e6e2d8;
-  --fg: #26211b;
-  --muted: #6b6255;
-  --line: #cfc7b8;
-  --accent: #8a5714;
-  --display: "Old Standard TT", "Times New Roman", Georgia, serif;
-  --body: "PT Sans", "Segoe UI", system-ui, sans-serif;
-  --mono: "PT Mono", Consolas, monospace;
-  --col: 44rem;
+  --bg: #f4f5f8;
+  --surface: #ffffff;
+  --fg: #1a1d26;
+  --muted: #5b6172;
+  --line: #dcdfe7;
+  --accent: #d1452f;
+  --accent-soft: #fbe6e2;
+  --display: "Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body: "Golos Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+  --col: 42rem;
+  --radius: 14px;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #17140f; --surface: #221d17; --fg: #ebe3d6; --muted: #a39784; --line: #3b332a; --accent: #d6a24a;
+    --bg: #111319; --surface: #1a1d26; --fg: #eceef3; --muted: #9aa0b1; --line: #2a2e3a; --accent: #ff7a5c; --accent-soft: #3a211d;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #17140f; --surface: #221d17; --fg: #ebe3d6; --muted: #a39784; --line: #3b332a; --accent: #d6a24a;
+  --bg: #111319; --surface: #1a1d26; --fg: #eceef3; --muted: #9aa0b1; --line: #2a2e3a; --accent: #ff7a5c; --accent-soft: #3a211d;
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 body {
   background: var(--bg); color: var(--fg);
-  font: 1.06rem/1.62 var(--body);
+  font: 1.07rem/1.7 var(--body);
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 a { color: var(--accent); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; text-wrap: balance; margin: 0; }
+a:focus-visible, button:focus-visible, img:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
 p { margin: 0; }
-ul, ol { margin: 0; padding-left: 1.2em; display: grid; gap: 0.45em; }
+ul { margin: 0; padding-left: 1.2em; display: grid; gap: 0.5em; }
+b, strong { font-weight: 600; }
 
-.page { max-width: 64rem; margin: 0 auto; }
+.page { max-width: 68rem; margin: 0 auto; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.prose { max-width: var(--col); display: grid; gap: 1rem; }
+.muted { color: var(--muted); }
 
 /* Hero */
-.hero { padding-block: 4.5rem 3rem; border-bottom: 1px solid var(--line); display: grid; gap: 1.1rem; max-width: var(--col); }
-.eyebrow { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
-.hero h1 { font-size: clamp(2.5rem, 7vw, 4.2rem); font-weight: 400; letter-spacing: -0.01em; }
-.hero h1 em { font-style: italic; color: var(--accent); }
-.hero .role { font-family: var(--display); font-size: 1.35rem; font-style: italic; color: var(--muted); }
-.hero .lead { font-size: 1.15rem; max-width: 38rem; }
-.contacts { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; font-family: var(--mono); font-size: 0.95rem; align-items: center; }
-.contacts .item { display: flex; gap: 0.5rem; align-items: center; }
-.copy { font: inherit; font-size: 0.8rem; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 0.1rem 0.5rem; cursor: pointer; }
-.copy:hover { color: var(--fg); border-color: var(--muted); }
+.hero { padding-block: 4.5rem 3.5rem; display: grid; gap: 1.4rem; }
+.hero h1 { font-size: clamp(2.6rem, 8vw, 5.2rem); line-height: 1.02; }
+.hero h1 span { color: var(--accent); }
+.hero .role { font-family: var(--display); font-weight: 500; font-size: clamp(1.05rem, 2.4vw, 1.4rem); color: var(--muted); }
+.hero .lead { font-size: clamp(1.15rem, 2.2vw, 1.35rem); line-height: 1.55; max-width: 40rem; }
+.hero .sub { max-width: 40rem; color: var(--muted); }
+.contacts { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 0.4rem; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; font: 500 0.95rem var(--body); text-decoration: none;
+  color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 0.55rem 1.1rem; cursor: pointer; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(1.08); color: #fff; }
+.btn .hint { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.btn.primary .hint { color: rgba(255,255,255,0.8); }
+
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; border-block: 1px solid var(--line); padding-block: 1.4rem; margin-bottom: 1rem; }
+.fact { display: grid; gap: 0.2rem; }
+.fact .n { font-family: var(--display); font-size: 1.9rem; font-variant-numeric: tabular-nums; }
+.fact .l { font-size: 0.9rem; color: var(--muted); line-height: 1.4; }
 
 /* Sections */
-.section { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.5rem; padding-block: 3.5rem; border-bottom: 1px solid var(--line); }
-.section > .label { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.55rem; }
-.section > .body { display: grid; gap: 1.6rem; min-width: 0; }
-.prose { max-width: var(--col); display: grid; gap: 1rem; }
-h2 { font-size: clamp(2rem, 4.5vw, 2.8rem); }
-h2 .note { font-weight: 400; font-style: italic; font-size: 0.55em; color: var(--muted); }
-h3 { font-size: 1.4rem; }
+.section { padding-block: 4rem; display: grid; gap: 2rem; }
+.section + .section { border-top: 1px solid var(--line); }
+h2 { font-size: clamp(2rem, 5vw, 3rem); }
+h3 { font-size: 1.2rem; }
+.block { display: grid; gap: 1.2rem; }
+.block > h3 { font-size: 1.45rem; }
 
-.status { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; }
-.status b { color: var(--fg); font-weight: 400; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tag { font-family: var(--mono); font-size: 0.78rem; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--accent-soft); color: var(--fg); }
 
-figure { margin: 0; display: grid; gap: 0.5rem; }
-figure img { width: 100%; max-width: 100%; height: auto; display: block; border: 1px solid var(--line); }
-figcaption { font-size: 0.9rem; color: var(--muted); max-width: var(--col); }
-.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+figure { margin: 0; display: grid; gap: 0.55rem; }
+figure img { width: 100%; max-width: 100%; height: auto; display: block; border-radius: var(--radius); border: 1px solid var(--line); cursor: zoom-in; transition: transform 0.2s ease; }
+figure img:hover { transform: translateY(-2px); }
+figcaption { font-size: 0.92rem; color: var(--muted); }
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
 
-.pillars { list-style: none; padding: 0; counter-reset: p; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem 2rem; max-width: none; }
-.pillars li { counter-increment: p; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.2rem; }
-.pillars li::before { content: counter(p, upper-roman); font-family: var(--display); font-size: 1.2rem; color: var(--accent); line-height: 1.3; }
-.pillars b { font-family: var(--display); font-size: 1.12rem; display: block; }
-.pillars span { color: var(--muted); font-size: 0.97rem; }
+.callout { border-left: 3px solid var(--accent); padding: 0.2rem 0 0.2rem 1.2rem; font-size: 1.15rem; line-height: 1.55; max-width: var(--col); }
 
-.systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.system { background: var(--surface); padding: 1.2rem 1.3rem; display: grid; gap: 0.5rem; align-content: start; }
-.system p { font-size: 0.98rem; }
+.pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem 2rem; }
+.pillar { display: grid; gap: 0.35rem; align-content: start; }
+.pillar .k { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
+.pillar h3 { font-size: 1.05rem; }
+.pillar p { color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
 
-.docs { list-style: none; padding: 0; gap: 0.9rem; max-width: var(--col); }
-.docs li { display: grid; gap: 0.15rem; }
-.docs .t { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
-.docs .d { color: var(--muted); font-size: 0.97rem; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; display: grid; gap: 0.7rem; align-content: start; min-width: 0; }
+.card p { font-size: 0.99rem; line-height: 1.6; }
 
-.text-project { display: grid; gap: 0.8rem; max-width: var(--col); }
-.text-project + .text-project { padding-top: 2rem; border-top: 1px dashed var(--line); }
-.meta { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); }
+/* Combat iterations: a real sequence */
+.timeline { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; counter-reset: step; }
+.timeline li { position: relative; padding: 1.6rem 1rem 0 0; display: grid; gap: 0.3rem; align-content: start; }
+.timeline li::before { content: ""; position: absolute; top: 0.45rem; left: 0; right: 0; height: 2px; background: var(--line); }
+.timeline li::after { content: ""; position: absolute; top: 0; left: 0; width: 1rem; height: 1rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+.timeline li.final::after { background: var(--accent); border-color: var(--accent); }
+.timeline .t { font-weight: 600; line-height: 1.3; }
+.timeline .d { font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
+.timeline li.final .t { color: var(--accent); }
 
-.flow { gap: 0.7em; }
-.flow b { font-family: var(--display); }
+.steps { list-style: none; padding: 0; display: grid; gap: 0.9rem; counter-reset: s; max-width: var(--col); }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.8rem; align-items: start; }
+.steps li::before { content: counter(s); font-family: var(--display); font-size: 0.95rem; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent); }
+.steps b { display: block; }
 
-figure img { cursor: zoom-in; }
-.lightbox { position: fixed; inset: 0; z-index: 10; background: rgba(10, 8, 6, 0.92); display: grid; place-items: center;
-  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); cursor: zoom-out; }
+.doc .ver { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+.project { gap: 1rem; }
+.project .why { background: var(--accent-soft); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: 0.4rem; font-size: 0.97rem; line-height: 1.6; }
+.project .why b { font-family: var(--display); font-size: 0.85rem; font-weight: 500; color: var(--accent); }
+
+.footer { padding-block: 2rem 3rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: 0.9rem; }
+
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 10; background: rgba(8, 9, 12, 0.92); display: grid; place-items: center; cursor: zoom-out;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 .lightbox[hidden] { display: none; }
-.lightbox img { max-width: 100%; max-height: 100%; width: auto; height: auto; border: 0; }
+.lightbox img { max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 8px; }
 .lightbox .close { position: absolute; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px));
-  font: 1rem var(--mono); color: #ebe3d6; background: rgba(0, 0, 0, 0.5); border: 1px solid #6b6255; border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer; }
+  font: 500 0.95rem var(--body); color: #eceef3; background: rgba(0, 0, 0, 0.55); border: 1px solid #5b6172; border-radius: 999px; padding: 0.4rem 1rem; cursor: pointer; }
 
-.footer { padding-block: 2rem 3rem; font-family: var(--mono); font-size: 0.82rem; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { figure img { transition: none; } figure img:hover { transform: none; } }
 
-@media (max-width: 760px) {
-  .section { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-block: 2.5rem; }
-  .section > .label { padding-top: 0; }
-  .shots, .systems, .pillars { grid-template-columns: minmax(0, 1fr); }
-  .hero { padding-block: 3rem 2.2rem; }
+@media (max-width: 860px) {
+  .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeline { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .timeline li { padding: 0 0 1.2rem 2rem; }
+  .timeline li::before { top: 0.5rem; bottom: 0; left: 0.45rem; right: auto; width: 2px; height: auto; }
+  .timeline li:last-child::before { display: none; }
+}
+@media (max-width: 680px) {
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shots, .cards, .projects, .pillars { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding-block: 3rem 2.5rem; }
+  .section { padding-block: 3rem; }
 }
 </style>
 
@@ -120,219 +156,225 @@ figure img { cursor: zoom-in; }
 
 <header class="hero">
   <p class="eyebrow">Портфолио · Казахстан · удалённо или офис</p>
-  <h1>Валентин <em>Погожев</em></h1>
+  <h1>Валентин<br><span>Погожев</span></h1>
   <p class="role">Геймдизайнер и нарративный дизайнер</p>
-  <p class="lead">Я строю миры, которые живут без игрока и отвечают на каждый его шаг. Механику
-    начинаю с ощущения: что игрок должен почувствовать, какой выбор сделать и чем за него заплатить.
-    Историю — с конфликта, который сломается от его решения.</p>
-  <p>За плечами огромный игровой опыт: стратегии, RPG, симуляторы, иммерсив-симы. Жанры я знаю
-    изнутри, как игрок, и вижу, на чём держится механика, а где она проседает. Свои идеи довожу до
-    играбельных прототипов с помощью ИИ-инструментов разработки и проверяю в игре, а не на бумаге.</p>
+  <p class="lead">Я строю миры, которые живут без игрока — и всё равно замечают каждый его шаг.</p>
+  <p class="sub">Механику начинаю с ощущения: что игрок почувствует, что выберет и чем заплатит.
+    Историю — с конфликта, который его решение может сломать. Я много лет играю в стратегии, RPG,
+    симуляторы и иммерсив-симы и смотрю на них глазами разработчика: на чём держится механика
+    и где она проседает.</p>
   <div class="contacts">
-    <span class="item"><span id="mail">vallearcanum@gmail.com</span><button class="copy" id="copy-mail" type="button">копировать</button></span>
-    <span class="item"><a href="https://t.me/Vallege">Telegram: @Vallege</a></span>
-    <span class="item"><a href="https://almaty.hh.kz/resume/c38f7623ff114162170039ed1f6730306c6b77">Резюме на hh.kz</a></span>
+    <a class="btn primary" href="https://t.me/Vallege" target="_blank" rel="noopener">Telegram <span class="hint">@Vallege</span></a>
+    <a class="btn" href="https://almaty.hh.kz/resume/c38f7623ff114162170039ed1f6730306c6b77" target="_blank" rel="noopener">Резюме на hh.kz ↗</a>
+    <button class="btn" id="copy-mail" type="button"><span id="mail">vallearcanum@gmail.com</span><span class="hint" id="copy-hint">копировать</span></button>
   </div>
 </header>
 
+<div class="facts" aria-label="Коротко в цифрах">
+  <div class="fact"><span class="n">3</span><span class="l">прототипа, доведённых до игры</span></div>
+  <div class="fact"><span class="n">350+</span><span class="l">дизайн-решений в журнале Huntfall</span></div>
+  <div class="fact"><span class="n">5</span><span class="l">итераций боевой системы до нужной</span></div>
+  <div class="fact"><span class="n">16</span><span class="l">версий одного документа механик</span></div>
+</div>
+
+<main>
+
 <section class="section" id="huntfall">
-  <p class="label">Главный проект</p>
-  <div class="body">
-    <div class="prose">
-      <h2>Huntfall <span class="note">рабочее название</span></h2>
-      <p class="status"><span>Жанр: <b>стратегия-менеджмент</b></span><span>Платформа: <b>ПК, одиночная</b></span><span>Начат: <b>сентябрь 2026</b></span><span>Стадия: <b>прототип</b></span></p>
-      <p class="lead">Компания охотников на мистическом Диком Западе — вымышленная Америка конца XIX века.
-        Мир медленно умирает от порчи, и спасти всё невозможно: игрок решает, что защищать,
-        кого отправить и чем пожертвовать.</p>
-      <p>Цель проекта — эмерджентная системная песочница: экономика, люди, враги и порча живут
-        по своим правилам, а истории возникают из их столкновения, без сценария.</p>
-    </div>
+  <div class="prose">
+    <p class="eyebrow">Главный проект · с сентября 2026</p>
+    <h2>Huntfall</h2>
+    <div class="tags"><span class="tag">стратегия-менеджмент</span><span class="tag">ПК</span><span class="tag">одиночная</span><span class="tag">прототип</span></div>
+    <p>Вы — глава компании охотников на мистическом Диком Западе. Мир медленно гниёт изнутри:
+      порча ползёт по карте, бандиты жгут фермы, в городе кончается хлеб. Спасти всё не выйдет.
+      Каждый день приходится решать, что защищать, кого отправить и кем пожертвовать.</p>
+  </div>
 
+  <figure>
+    <img src="img/map-people.png" alt="Карта региона: город, рудники, железная дорога, реки; окно бойцов компании" loading="lazy" width="1280" height="800">
+    <figcaption>Регион живёт сам: предприятия работают, грузы едут, время идёт без перемотки.</figcaption>
+  </figure>
+
+  <p class="callout">Цель — эмерджентная песочница. Экономика, люди, враги и порча живут по своим
+    правилам, а истории рождаются из их столкновений, без сценария.</p>
+
+  <div class="block">
+    <h3>Моя роль</h3>
+    <div class="prose">
+      <p>Я автор игры: концепция, столпы, все механики и решения по ним. Пишу дизайн-документы,
+        отвечаю на вопросы по механикам, проверяю каждую систему в игре.</p>
+      <p>Код, математическую модель и числа баланса по моим целям делает ИИ-разработчик
+        (Claude Code). Я ставлю задачу на языке ощущений — «стресс должен давить к пятому дню», —
+        а потом смотрю на результат в игре и на отчёты ботов, которые прогоняют сотни кампаний.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Столпы</h3>
+    <div class="pillars">
+      <div class="pillar"><span class="k">01</span><h3>Мир умирает</h3><p>Потери неизбежны. Игрок выбирает, что удержать, а что отдать.</p></div>
+      <div class="pillar"><span class="k">02</span><h3>Дел больше, чем людей</h3><p>Отряды, бойцы и деньги всегда в дефиците.</p></div>
+      <div class="pillar"><span class="k">03</span><h3>Знание — оружие</h3><p>Карта — это то, что вы разведали. Слухи ведут к боссам.</p></div>
+      <div class="pillar"><span class="k">04</span><h3>Бойцы — личности</h3><p>Прошлое, черты, отношения. Их смерть бьёт по-настоящему.</p></div>
+      <div class="pillar"><span class="k">05</span><h3>Стратегия, не тактика</h3><p>Вы решаете, как и когда драться, а не кто куда стреляет.</p></div>
+      <div class="pillar"><span class="k">06</span><h3>Всё связано</h3><p>У задачи несколько решений, мир помнит последствия.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Как это играется</h3>
+    <div class="cards">
+      <article class="card">
+        <h3>Несколько дел сразу</h3>
+        <p>Здесь нет цикла «база → задание → база». Пока один отряд идёт к руднику, вы нанимаете
+          людей, торгуете и берёте новый контракт. Главный вопрос всегда один: куда сейчас
+          вложить время, людей и деньги.</p>
+      </article>
+      <article class="card">
+        <h3>Бой по нарисованному плану</h3>
+        <p>Вы рисуете отрядам стрелки движения и линии обороны, ставите сигналы — и смотрите, как
+          бойцы исполняют план сами. Победа или провал выглядят как следствие вашей подготовки.</p>
+      </article>
+      <article class="card">
+        <h3>Хозяйство, которое можно сломать</h3>
+        <p>Мельница мелет муку, пекарня печёт хлеб, поезд приходит раз в неделю. Сожгли мельницу —
+          через неделю в городе нет хлеба, растут цены, появляются новые заказы.</p>
+      </article>
+      <article class="card">
+        <h3>Вы видите только то, что знаете</h3>
+        <p>Сколько бандитов в лагере? Неизвестно, пока не разведаете. Спят они, едят или караулят —
+          от этого зависит, получится ли подойти незаметно.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="shots">
     <figure>
-      <img src="img/map-people.png" alt="Карта региона: город, рудники, железная дорога, реки; окно бойцов компании" loading="lazy" width="1280" height="800">
-      <figcaption>Карта региона: поселения, предприятия, железная дорога. Время идёт без перемотки,
-        пока игрок управляет компанией.</figcaption>
+      <img src="img/battle-orders.png" alt="Бой: нарисованная линия обороны и группа бойцов" loading="lazy" width="1280" height="800">
+      <figcaption>Линия обороны нарисована прямо на поле перед лагерем врага.</figcaption>
     </figure>
+    <figure>
+      <img src="img/battle-vision.png" alt="Бой: обзор бойца с учётом укрытий и карточка бойца" loading="lazy" width="1280" height="800">
+      <figcaption>Деревья и укрытия режут обзор; врагов не видно до разведки.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/job.png" alt="Окно задания: охота на мертвяков у дороги, награда и срок" loading="lazy" width="1280" height="800">
+      <figcaption>Задание: срок, награда и цена, если отказаться.</figcaption>
+    </figure>
+  </div>
 
-    <div class="prose">
-      <h3>Моя роль</h3>
-      <ul>
-        <li>Автор концепции, столпов и геймдизайна: направление механик, желаемые ощущения игрока, содержание.</li>
-        <li>Пишу дизайн-документы и ТЗ по механикам, принимаю финальное решение по каждой системе.</li>
-        <li>Код, математическую модель и числа баланса по моим целям делает ИИ-разработчик (Claude Code).
-          Результат я проверяю в игре и по отчётам стенда ботов: массовые прогоны кампаний с цифрами —
-          длина боя, смертность, деньги, «нечем заняться».</li>
-      </ul>
-    </div>
-
-    <h3>Столпы игры</h3>
-    <ol class="pillars">
-      <li><div><b>Мир умирает, и всё не спасти</b><span>Потери неизбежны — игрок выбирает, что удерживать.</span></div></li>
-      <li><div><b>Дел больше, чем времени и людей</b><span>Отряды, бойцы и ресурсы всегда в дефиците.</span></div></li>
-      <li><div><b>Знание — оружие</b><span>Карта — это то, что игрок разведал; слухи и расследования ведут к боссам.</span></div></li>
-      <li><div><b>Бойцы — личности</b><span>Прошлое, черты, отношения, напряжение; их потеря бьёт.</span></div></li>
-      <li><div><b>Стратегия, а не тактика</b><span>Игрок решает, как и когда драться, а не кто куда стреляет.</span></div></li>
-      <li><div><b>Всё связано</b><span>У задачи несколько решений, мир реагирует на последствия.</span></div></li>
+  <div class="block">
+    <h3>Как рождается механика</h3>
+    <ol class="steps">
+      <li><div><b>Обсуждаю идею.</b> Проговариваю механику с ИИ-собеседником: какое ощущение она даёт, какие у неё варианты.</div></li>
+      <li><div><b>Редактирую.</b> Перечитываю заметки, убираю лишнее и собираю документ механики своими словами.</div></li>
+      <li><div><b>Проверяю на прочность.</b> Разбираю документ с ИИ-разработчиком: ищем дыры и противоречия, доводим до точных правил.</div></li>
+      <li><div><b>Решаю.</b> Где ответа нет, приходит опросник с вариантами. Важные механики дописываю сам, для временных заглушек беру вариант ИИ.</div></li>
+      <li><div><b>Смотрю в игре.</b> Механика попадает в прототип, её прогоняют боты, я играю и пишу замечания.</div></li>
     </ol>
+  </div>
 
-    <h3>Ключевые системы</h3>
-    <div class="systems">
-      <article class="system">
-        <h3>Параллельное управление</h3>
-        <p>Нет цикла «база → задание → база». Отряды — процессы мира: идут по маршруту, пока игрок
-          нанимает людей, торгует и берёт новые задания. Главный вопрос — куда распределить время,
-          людей и деньги.</p>
-      </article>
-      <article class="system">
-        <h3>Автономный бой по приказам</h3>
-        <p>Игрок не управляет каждым выстрелом. Он рисует группам стрелки движения и линии обороны,
-          задаёт сигналы и смотрит, как бойцы исполняют план сами. Исход — следствие подготовки.</p>
-      </article>
-      <article class="system">
-        <h3>Экономика с цепочками</h3>
-        <p>Предприятия производят товары и везут их по дорогам, поезд приходит раз в неделю. Набеги
-          и порча рвут цепочки — в городе дефицит, а с ним новые задания и трудные выборы.</p>
-      </article>
-      <article class="system">
-        <h3>Знание и разведка</h3>
-        <p>Игрок видит не мир, а то, что о нём знает. Сколько врагов в лагере, неизвестно до разведки;
-          занятия врагов (спят, едят, караулят) меняют план атаки.</p>
-      </article>
-    </div>
+  <div class="block">
+    <h3>Боевая система: пять попыток</h3>
+    <p class="prose">Бой дался дольше всего. Каждую версию я начинал с ТЗ, прорабатывал на бумаге,
+      проверял в прототипе — и шёл дальше, если ощущение не то.</p>
+    <ol class="timeline">
+      <li><span class="t">Текстовый бой</span><span class="d">Исход описан словами.</span></li>
+      <li><span class="t">Полная анимация</span><span class="d">Видно всё, но решать нечего.</span></li>
+      <li><span class="t">+ стратегический уровень</span><span class="d">Появился план, но он оторван от поля.</span></li>
+      <li><span class="t">+ тактический уровень</span><span class="d">Слишком много ручного управления.</span></li>
+      <li class="final"><span class="t">Бойцы сами, план рисует игрок</span><span class="d">Лучшее из всех: решения — ваши, исполнение — их.</span></li>
+    </ol>
+  </div>
 
-    <div class="shots">
-      <figure>
-        <img src="img/battle-orders.png" alt="Бой: нарисованная линия обороны и группа бойцов" loading="lazy" width="1280" height="800">
-        <figcaption>Приказ рисуется: линия обороны для группы перед лагерем врага.</figcaption>
-      </figure>
-      <figure>
-        <img src="img/battle-vision.png" alt="Бой: обзор бойца с учётом укрытий и карточка бойца" loading="lazy" width="1280" height="800">
-        <figcaption>Обзор бойца закрывают деревья и укрытия; число врагов неизвестно.</figcaption>
-      </figure>
-      <figure>
-        <img src="img/job.png" alt="Окно задания: охота на мертвяков у дороги, награда и срок" loading="lazy" width="1280" height="800">
-        <figcaption>Задания приходят от сторон мира: срок, награда, цена отказа.</figcaption>
-      </figure>
-    </div>
-
-    <div class="prose">
-      <h3>Как рождается механика</h3>
-      <ol class="flow">
-        <li><b>Идея в обсуждении.</b> Механику я сначала проговариваю с ИИ-собеседником (GPT): ищу,
-          какое ощущение она должна дать и какие у неё варианты.</li>
-        <li><b>Моя редактура.</b> Пересматриваю заметки, убираю лишнее, правлю формулировки
-          и собираю документ механики.</li>
-        <li><b>Проверка на реализуемость.</b> Документ разбираю с ИИ-разработчиком (Claude Code): он
-          находит дыры и противоречия, мы вместе доводим механику до точных правил.</li>
-        <li><b>Вопросы и решения.</b> Где решения не хватает, приходит ТЗ-опросник: вопрос о геймплее,
-          2–4 варианта, решение принимаю я.</li>
-        <li><b>Интеграция и проверка.</b> Механика попадает в игру, её прогоняют боты, я смотрю
-          в игре и пишу замечания.</li>
-      </ol>
-      <p>Все решения записаны в журнал, их больше 350: по нему видно, что и почему менялось. Сначала
-        делается минимальное ядро механики, детали добавляются, когда ядро показало, что оно интересно.</p>
-    </div>
-
-    <div class="prose">
-      <h3>Документы, которые я вёл</h3>
-      <ul class="docs">
-        <li><span class="t">Экономика Huntfall, версия 1.3</span>
-          <span class="d">Главная развилка: изображать упадок мира заскриптованным крахом или честно
-            симулировать хозяйство. Я выбрал настоящую симуляцию: она порождает больше эмерджентных
-            ситуаций, а именно к эмерджентной песочнице я веду Huntfall. Набег на мельницу оборачивается
-            нехваткой хлеба в городе сам, без скрипта.</span>
-          <span class="d">Дальше цель: игрок должен понимать, где что производится, куда уходит и почему
-            возник дефицит, но экономика не должна превращаться в отдельную торговую стратегию. Потом —
-            ограничения из уже готовых систем (набеги, порча, поезд раз в неделю), каркас и порядок
-            обсуждения. Темы разбирал по очереди и вёл журнал решений: еда и её поток через город,
-            критерий, когда цепочка переработки нужна, а когда лишняя (на примерах рыбы и
-            «зерно → мука → хлеб»), крафт гильдии, город как торговый узел. Чисел и формул
-            в документе нет сознательно — это зона баланса.</span></li>
-        <li><span class="t">Автономная тактическая система боя, версия 1.4</span>
-          <span class="d">Бой — самая долгая моя итерация. Он был текстовым, затем полностью анимированным,
-            затем я добавил стратегический уровень, потом тактический. Ни одна версия не давала нужного
-            ощущения. Каждую я начинал с ТЗ и сначала прорабатывал теоретически, а потом проверял
-            в прототипе.</span>
-          <span class="d">В итоге пришёл к решению, которое считаю лучшим из всех: на тактическом уровне
-            бойцы действуют сами, а стратегический план боя рисует игрок. Версия 1.4 описывает именно
-            его. В документе — как рисуются
-            приказы (стрелка, несколько стрелок, линия обороны, их сочетания), когда они срабатывают
-            и где у игрока остаётся выбор. Отдельно — боевые карты (лагерь, усадьба, разветвлённые
-            объекты), поведение врага до обнаружения, читаемость бойцов. Для разведки, засады,
-            провокации и обороны при нападении расписал ступени исхода от провала до полного
-            успеха и что игрок видит при каждой.</span></li>
-        <li><span class="t">Механики NPC и услуги, версия 16</span>
-          <span class="d">Шестнадцать итераций одного документа. Мнение жителей как общий принцип,
-            у каждого NPC свой пул заданий, услуги мэра (найти рекрута, продать дефицит из запасов
-            города) и шерифа (завербовать или допросить пленного). Предложил убрать постоянное окно
-            найма: новые люди приходят через события. У каждой механики помечено, что решено,
-            а что пока сознательно не проектируется.</span></li>
-        <li><span class="t">Серия ТЗ-опросников, 15 штук</span>
-          <span class="d">Бойцы, бой, мир, город, события, снаряжение, кампания, живой мир, экономика.
-            Отвечал на вопросы о геймплее и выбирал направление. Важные механики дописывал сам,
-            своими словами; там, где хватало временной заглушки, принимал вариант ИИ.</span></li>
-      </ul>
+  <div class="block">
+    <h3>Документы, которые я вёл</h3>
+    <div class="cards">
+      <article class="card doc">
+        <span class="ver">версия 1.3</span>
+        <h3>Экономика Huntfall</h3>
+        <p>Главная развилка — изображать упадок заскриптованным крахом или честно симулировать
+          хозяйство. Я выбрал симуляцию: она рождает больше эмерджентных ситуаций, а к песочнице
+          я и веду игру.</p>
+        <p class="muted">Дальше разбирал тему за темой с журналом решений: поток еды через город,
+          когда цепочка переработки нужна, а когда лишняя («зерно → мука → хлеб»), крафт гильдии,
+          город как торговый узел.</p>
+      </article>
+      <article class="card doc">
+        <span class="ver">версия 1.4</span>
+        <h3>Автономный тактический бой</h3>
+        <p>Финальная модель боя: как рисуются приказы и в какой момент срабатывают, где у игрока
+          остаётся выбор, как устроены боевые карты — лагерь, усадьба, разветвлённые постройки.</p>
+        <p class="muted">Разведка, засада, провокация и оборона при нападении расписаны по ступеням:
+          от полного провала до полного успеха, с тем, что игрок видит в каждом случае.</p>
+      </article>
+      <article class="card doc">
+        <span class="ver">версия 16</span>
+        <h3>Механики NPC и услуги</h3>
+        <p>Шестнадцать итераций одного документа. Мнение жителей о компании, свой пул заданий
+          у каждого NPC, услуги мэра и шерифа — от поиска рекрута до допроса пленного.</p>
+        <p class="muted">Предложил убрать постоянное окно найма: новые люди приходят через события.
+          У каждой механики помечено, что решено, а что пока сознательно отложено.</p>
+      </article>
+      <article class="card doc">
+        <span class="ver">15 опросников</span>
+        <h3>Серия ТЗ по механикам</h3>
+        <p>Бойцы, бой, мир, город, события, снаряжение, кампания, живой мир, экономика. В каждом —
+          вопросы о геймплее и мои решения.</p>
+        <p class="muted">Именно в этих обсуждениях общие идеи превращались в точные механики.</p>
+      </article>
     </div>
   </div>
 </section>
 
 <section class="section" id="other">
-  <p class="label">Другие проекты</p>
-  <div class="body">
-    <article class="text-project">
-      <h3>T3TH3R — интерактивная книга с генеративным повествованием</h3>
-      <p class="meta">Визуальная новелла → прототип 2026 · нарративный дизайн · остановлен</p>
-      <p>Около года я прорабатывал мир и писал историю под визуальную новеллу: лор, протагониста,
-        структуру сюжета по ценностной оси. Сцены проектировались вручную, и это растянулось на
-        полгода, а выборы получались фиктивными: «+1 к любви, истине или контролю» почти не меняли сцену.
-        Тогда я переосмыслил проект в интерактивную книгу: игрок действует свободным текстом, ИИ пишет
-        развитие сцены.</p>
-      <p>Чтобы история не стала бесконечным чатом, я спроектировал драматургическое ядро — <b>лестницу
-        конфликтов</b>. Каждая ступень задаёт не готовую сцену, а обязательное изменение («контроль
-        героя должен потерпеть поражение»); способ его достижения зависит от игрока.</p>
-      <ul>
-        <li>«Любовь / истина / контроль» стали скрытыми метриками внимания, а не очками за выбор.</li>
-        <li>Лор мира с пометкой, когда какой факт раскрывается игроку; подробный драматургический
-          портрет протагониста; шкала масштаба угроз и каталог способов реализовать ступень.</li>
-        <li>Прототип: сервер и клиент на Unity, генерация разделена на роли — «осложнение» (что
-          сопротивляется действию игрока), «писатель» (проза), «ревьюер» и «валидатор» (выполнена ли
-          функция ступени).</li>
-      </ul>
-      <p><b>Почему остановил.</b> Даже с отдельными ИИ-писателем и ИИ-валидатором не удалось добиться
-        нужной драматургии: модель пересказывала команду игрока вместо авторского хода, а ступень
-        схлопывалась в один ход. Замысел оказался сильнее того, что сейчас умеет генерация, и я
-        остановил прототип, а не стал растягивать его без результата. Вывод: драматургию нужно
-        закладывать в систему, а не надеяться на модель — так устроены следующие проекты.</p>
+  <div class="prose">
+    <p class="eyebrow">Ранние проекты</p>
+    <h2>Что было до</h2>
+    <p class="muted">Оба проекта остановлены. Из каждого я вынес урок, на котором стоит Huntfall.</p>
+  </div>
+
+  <div class="projects">
+    <article class="card project">
+      <span class="ver eyebrow">нарративный дизайн · 2025–2026</span>
+      <h3>T3TH3R — интерактивная книга</h3>
+      <p>Год я строил мир и писал историю под визуальную новеллу. Но сцены проектировались вручную
+        полгода, а выборы оказались пустыми: «+1 к любви» почти не меняло сцену.</p>
+      <p>Тогда я превратил новеллу в интерактивную книгу. Игрок пишет свободным текстом, ИИ ведёт
+        сцену, а держит историю <b>лестница конфликтов</b>: каждая ступень задаёт не сцену, а
+        перемену, которая обязана случиться. Как именно — решает игрок.</p>
+      <p class="muted">Прототип: клиент на Unity и сервер, где генерация разделена на роли —
+        осложнение, писатель, ревьюер, валидатор.</p>
+      <div class="why"><b>Почему остановил</b>Даже с отдельными ИИ-писателем и ИИ-валидатором модель
+        не держала драматургию: пересказывала команду игрока вместо авторского хода. Замысел
+        оказался больше, чем умеет генерация сегодня. Урок: драматургию нужно закладывать
+        в систему, а не ждать её от модели.</div>
     </article>
 
-    <article class="text-project">
-      <h3>Текстовая RPG 18+ с ИИ-рассказчиком</h3>
-      <p class="meta">Прототип · 2026 · системный дизайн · игра для взрослых · проект закрыт</p>
-      <p>Фэнтези: молодой маг возвращается домой, до приезда короля семь дней. Главный принцип —
-        <b>игра решает, ИИ рассказывает</b>: исход считает система, текст сцены пишется по готовому
-        результату.</p>
-      <ul>
-        <li>Неделя из слотов действий; финал — бал, большая проверка навыков, отношений и решений.</li>
-        <li>Проверки d20 с четырьмя исходами. Слабый навык не запрещает действие, а меняет, как оно
-          проходит: одна ситуация даёт разные сцены.</li>
-        <li>«Куб контекста» — случайные обстоятельства (время, место, чем занят персонаж) для
-          разнообразия без потери контроля.</li>
-        <li>Отношения и состояние персонажей влияют не только на доступ к сцене, но и на то, как
-          она проходит; провал подхода даёт ощутимый откат, проскочить нельзя.</li>
-      </ul>
-      <p>За две с половиной недели собран рабочий прототип: клиент на Unity, игровой сервер с
-        механиками, сайт с аккаунтами и платёжным каркасом. Я вёл дизайн и решения, код писал
-        ИИ-разработчик.</p>
-      <p><b>Почему остановил.</b> Остановил сам, когда проект был технически почти готов к закрытому
-        запуску. Игра работала онлайн, с ИИ на сервере, а основная площадка целевой аудитории
-        принимает только офлайн-игры; оставшиеся каналы не приводили новых игроков, а платёжные
-        системы не работают с такой взрослой тематикой. Расчёт показал, что доход не покроет даже расходы на
-        сервер и ИИ. Вывод — проверять каналы и экономику проекта до разработки, а не после.</p>
+    <article class="card project">
+      <span class="ver eyebrow">системный дизайн · 2026 · 18+</span>
+      <h3>Текстовая RPG для взрослых</h3>
+      <p>Молодой маг возвращается домой, до приезда короля семь дней. Неделя разбита на слоты
+        действий, а в конце — бал, где проверяется всё: навыки, отношения, решения.</p>
+      <p>Правило проекта: <b>игра решает, ИИ рассказывает</b>. Исход считает система — броски d20
+        с четырьмя исходами, — а ИИ лишь описывает результат. Слабый навык не запрещает действие,
+        он меняет то, как оно пройдёт. «Куб контекста» подбрасывает время, место и занятие
+        персонажа, так что одна ситуация каждый раз разыгрывается по-новому.</p>
+      <p class="muted">За две с половиной недели — клиент на Unity, игровой сервер и сайт
+        с аккаунтами и платёжным каркасом.</p>
+      <div class="why"><b>Почему остановил</b>Проект был почти готов к закрытому запуску. Но главная
+        площадка аудитории принимает только офлайн-игры, а платёжные системы не работают с такой
+        взрослой тематикой. Расчёт показал, что доход не покроет даже сервер и ИИ. Урок: каналы
+        и экономику проекта проверять до разработки.</div>
     </article>
   </div>
 </section>
 
-<footer class="footer">Валентин Погожев · 2026</footer>
+</main>
+
+<footer class="footer">
+  <span>Валентин Погожев · 2026</span>
+  <span><a href="https://t.me/Vallege" target="_blank" rel="noopener">Telegram</a> · <a href="https://almaty.hh.kz/resume/c38f7623ff114162170039ed1f6730306c6b77" target="_blank" rel="noopener">hh.kz</a> · vallearcanum@gmail.com</span>
+</footer>
 
 </div>
 
@@ -355,10 +397,10 @@ figure img { cursor: zoom-in; }
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
 })();
 document.getElementById('copy-mail').addEventListener('click', function () {
-  var btn = this, text = document.getElementById('mail').textContent;
-  function done() { btn.textContent = 'скопировано'; setTimeout(function () { btn.textContent = 'копировать'; }, 1600); }
-  function select() { var r = document.createRange(); r.selectNodeContents(document.getElementById('mail')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
-  try { navigator.clipboard.writeText(text).then(done, select); } catch (e) { select(); }
+  var hint = document.getElementById('copy-hint'), mail = document.getElementById('mail');
+  function done() { hint.textContent = 'скопировано'; setTimeout(function () { hint.textContent = 'копировать'; }, 1600); }
+  function select() { var r = document.createRange(); r.selectNodeContents(mail); var s = getSelection(); s.removeAllRanges(); s.addRange(r); hint.textContent = 'выделено'; }
+  try { navigator.clipboard.writeText(mail.textContent).then(done, select); } catch (e) { select(); }
 });
 </script>
 </html>
