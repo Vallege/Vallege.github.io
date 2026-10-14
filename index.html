@@ -104,14 +104,22 @@ figcaption { font-size: 0.92rem; color: var(--muted); }
 .card p { font-size: 0.99rem; line-height: 1.6; }
 
 /* Combat iterations: a real sequence */
-.timeline { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; counter-reset: step; }
-.timeline li { position: relative; padding: 1.6rem 1rem 0 0; display: grid; gap: 0.3rem; align-content: start; }
-.timeline li::before { content: ""; position: absolute; top: 0.45rem; left: 0; right: 0; height: 2px; background: var(--line); }
-.timeline li::after { content: ""; position: absolute; top: 0; left: 0; width: 1rem; height: 1rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
-.timeline li.final::after { background: var(--accent); border-color: var(--accent); }
-.timeline .t { font-weight: 600; line-height: 1.3; }
-.timeline .d { font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
-.timeline li.final .t { color: var(--accent); }
+.timeline { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.step { position: relative; padding: 1.6rem 1rem 0.9rem 0; display: grid; gap: 0.3rem; align-content: start; text-align: left;
+  font: inherit; color: var(--fg); background: none; border: 0; border-radius: 8px; cursor: pointer; }
+.step::before { content: ""; position: absolute; top: 0.45rem; left: 0; right: 0; height: 2px; background: var(--line); }
+.step::after { content: ""; position: absolute; top: 0; left: 0; width: 1rem; height: 1rem; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); transition: transform 0.15s ease; }
+.step.final::after { border-color: var(--accent); }
+.step[aria-selected="true"]::after { background: var(--accent); border-color: var(--accent); transform: scale(1.25); }
+.step .t { font-weight: 600; line-height: 1.3; }
+.step .d { font-size: 0.9rem; color: var(--muted); line-height: 1.45; }
+.step:hover .t, .step[aria-selected="true"] .t { color: var(--accent); }
+.it-panel { gap: 1rem; }
+.it-head { display: grid; gap: 0.3rem; }
+.it-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.it-cols p { font-size: 0.99rem; line-height: 1.6; }
+.it-label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.it-tip { font-size: 0.9rem; }
 
 .steps { list-style: none; padding: 0; display: grid; gap: 0.9rem; counter-reset: s; max-width: var(--col); }
 .steps li { counter-increment: s; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.8rem; align-items: start; }
@@ -140,9 +148,10 @@ figcaption { font-size: 0.92rem; color: var(--muted); }
 @media (max-width: 860px) {
   .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .timeline { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .timeline li { padding: 0 0 1.2rem 2rem; }
-  .timeline li::before { top: 0.5rem; bottom: 0; left: 0.45rem; right: auto; width: 2px; height: auto; }
-  .timeline li:last-child::before { display: none; }
+  .step { padding: 0 0 1.2rem 2rem; }
+  .step::before { top: 0.5rem; bottom: 0; left: 0.45rem; right: auto; width: 2px; height: auto; }
+  .step:last-child::before { display: none; }
+  .it-cols { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 }
 @media (max-width: 680px) {
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -277,13 +286,21 @@ figcaption { font-size: 0.92rem; color: var(--muted); }
     <h3>Боевая система: пять попыток</h3>
     <p class="prose">Бой дался дольше всего. Каждую версию я начинал с ТЗ, прорабатывал на бумаге,
       проверял в прототипе — и шёл дальше, если ощущение не то.</p>
-    <ol class="timeline">
-      <li><span class="t">Текстовый бой</span><span class="d">Исход описан словами.</span></li>
-      <li><span class="t">Полная анимация</span><span class="d">Видно всё, но решать нечего.</span></li>
-      <li><span class="t">+ стратегический уровень</span><span class="d">Появился план, но он оторван от поля.</span></li>
-      <li><span class="t">+ тактический уровень</span><span class="d">Слишком много ручного управления.</span></li>
-      <li class="final"><span class="t">Бойцы сами, план рисует игрок</span><span class="d">Лучшее из всех: решения — ваши, исполнение — их.</span></li>
-    </ol>
+    <div class="timeline" role="tablist" aria-label="Итерации боевой системы">
+      <button class="step" role="tab" id="it-1" aria-controls="it-panel" aria-selected="false" type="button"><span class="t">Текстовый бой</span><span class="d">Бой по стадиям, исход в журнале.</span></button>
+      <button class="step" role="tab" id="it-2" aria-controls="it-panel" aria-selected="false" type="button"><span class="t">Полная анимация</span><span class="d">Красиво, но хочется промотать.</span></button>
+      <button class="step" role="tab" id="it-3" aria-controls="it-panel" aria-selected="false" type="button"><span class="t">+ стратегический уровень</span><span class="d">Замысел и роли до боя.</span></button>
+      <button class="step" role="tab" id="it-4" aria-controls="it-panel" aria-selected="false" type="button"><span class="t">+ тактический уровень</span><span class="d">Интересно, но это микроконтроль.</span></button>
+      <button class="step final" role="tab" id="it-5" aria-controls="it-panel" aria-selected="true" type="button"><span class="t">Бойцы сами, план рисует игрок</span><span class="d">Лучшее из всех.</span></button>
+    </div>
+    <div class="it-panel card" id="it-panel" role="tabpanel" aria-live="polite">
+      <div class="it-head"><span class="eyebrow" id="it-num"></span><h3 id="it-title"></h3></div>
+      <div class="it-cols">
+        <div><p class="it-label">Как было устроено</p><p id="it-how"></p></div>
+        <div><p class="it-label">Что показала проверка</p><p id="it-result"></p></div>
+      </div>
+    </div>
+    <p class="muted it-tip">Нажмите на этап, чтобы посмотреть подробности.</p>
   </div>
 
   <div class="block">
@@ -395,6 +412,42 @@ figcaption { font-size: 0.92rem; color: var(--muted); }
   });
   box.addEventListener('click', close);
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+})();
+(function () {
+  var data = [
+    { title: 'Текстовый бой',
+      how: 'Бой шёл по стадиям. Перед каждой игрок выбирал, как действует отряд: прикрывать, красться, открыть огонь сразу. Исход считала система, а журнал описывал его связным текстом.',
+      result: 'Выбор манеры работал, и к этой идее я потом возвращался. Но сам бой игрок не видел, а только читал о нём, и привязаться к происходящему на поле было трудно.' },
+    { title: 'Полная анимация',
+      how: 'Бой стал видимым: поле с укрытиями, травой и валунами, бойцы и враги двигаются, стреляют, слышат шум и прячутся сами. Игрок смотрит на схватку целиком.',
+      result: 'Вышло кино. Мой отзыв после проверки: «бой не интересен, хочется промотать». Когда игроку нечего решать, даже живая картинка не держит внимание.' },
+    { title: '+ стратегический уровень',
+      how: 'До боя игрок задавал замысел, роли бойцов и способ действия, а игра сама останавливала бой в ключевые моменты: контакт, ранение, долгое затишье.',
+      result: 'Решения появились, но они были оторваны от поля: игрок выбирал строчку в меню, а не видел, где и как отряд пойдёт. Бой всё ещё смотрелся как кино с перерывами.' },
+    { title: '+ тактический уровень',
+      how: 'Пробник в духе Door Kickers: пауза в любой момент, игрок сам ведёт каждого бойца по точкам пути, отдаёт действия значками на карте, подаёт сигналы.',
+      result: 'Пробник показал главное: бой стал заметно интереснее, когда решает игрок. Но полная версия превращалась в стратегию в реальном времени с микроконтролем, а Huntfall — игра про стратегию, не про управление каждым выстрелом.' },
+    { title: 'Бойцы сами, план рисует игрок',
+      how: 'Игрок рисует план прямо на поле: стрелки движения для групп, линии обороны, сигналы и порядок приказов. Тактику бойцы исполняют сами, по своему характеру и обстановке.',
+      result: 'Лучшее из всех: решения — ваши, исполнение — их. Главный критерий из ТЗ: игрок смотрит на бой и понимает, почему бойцы сделали то, что сделали. Эту версию описывает документ 1.4.' }
+  ];
+  var tabs = document.querySelectorAll('.timeline .step');
+  function show(i) {
+    tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+    document.getElementById('it-num').textContent = 'Итерация ' + (i + 1) + ' из ' + data.length;
+    document.getElementById('it-title').textContent = data[i].title;
+    document.getElementById('it-how').textContent = data[i].how;
+    document.getElementById('it-result').textContent = data[i].result;
+    document.getElementById('it-panel').setAttribute('aria-labelledby', 'it-' + (i + 1));
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i); });
+    t.addEventListener('keydown', function (e) {
+      var n = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+      if (n) { e.preventDefault(); var j = (i + n + tabs.length) % tabs.length; show(j); tabs[j].focus(); }
+    });
+  });
+  show(tabs.length - 1);
 })();
 document.getElementById('copy-mail').addEventListener('click', function () {
   var hint = document.getElementById('copy-hint'), mail = document.getElementById('mail');
