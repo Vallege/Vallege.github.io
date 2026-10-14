@@ -1,165 +1,272 @@
 <!doctype html>
 <html lang="ru">
-<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Валентин Погожев — геймдизайнер</title>
-<meta name="description" content="Портфолио геймдизайнера: Huntfall — стратегия-менеджмент охотников на мистическом Диком Западе, и другие проекты.">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=PT+Mono&display=swap">
+<style>
+/* Layout: one reading column; on wide screens section labels sit in a left margin, like a ledger */
+:root {
+  --bg: #f1efe9;
+  --surface: #e6e2d8;
+  --fg: #26211b;
+  --muted: #6b6255;
+  --line: #cfc7b8;
+  --accent: #8a5714;
+  --display: "Old Standard TT", "Times New Roman", Georgia, serif;
+  --body: "PT Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "PT Mono", Consolas, monospace;
+  --col: 44rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17140f; --surface: #221d17; --fg: #ebe3d6; --muted: #a39784; --line: #3b332a; --accent: #d6a24a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17140f; --surface: #221d17; --fg: #ebe3d6; --muted: #a39784; --line: #3b332a; --accent: #d6a24a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 1.06rem/1.62 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+ul, ol { margin: 0; padding-left: 1.2em; display: grid; gap: 0.45em; }
+
+.page { max-width: 64rem; margin: 0 auto; }
+
+/* Hero */
+.hero { padding-block: 4.5rem 3rem; border-bottom: 1px solid var(--line); display: grid; gap: 1.1rem; max-width: var(--col); }
+.eyebrow { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.hero h1 { font-size: clamp(2.5rem, 7vw, 4.2rem); font-weight: 400; letter-spacing: -0.01em; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero .role { font-family: var(--display); font-size: 1.35rem; font-style: italic; color: var(--muted); }
+.hero .lead { font-size: 1.15rem; max-width: 38rem; }
+.contacts { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; font-family: var(--mono); font-size: 0.95rem; align-items: center; }
+.contacts .item { display: flex; gap: 0.5rem; align-items: center; }
+.copy { font: inherit; font-size: 0.8rem; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 0.1rem 0.5rem; cursor: pointer; }
+.copy:hover { color: var(--fg); border-color: var(--muted); }
+
+/* Sections */
+.section { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2.5rem; padding-block: 3.5rem; border-bottom: 1px solid var(--line); }
+.section > .label { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-top: 0.55rem; }
+.section > .body { display: grid; gap: 1.6rem; min-width: 0; }
+.prose { max-width: var(--col); display: grid; gap: 1rem; }
+h2 { font-size: clamp(2rem, 4.5vw, 2.8rem); }
+h2 .note { font-weight: 400; font-style: italic; font-size: 0.55em; color: var(--muted); }
+h3 { font-size: 1.4rem; }
+
+.status { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; }
+.status b { color: var(--fg); font-weight: 400; }
+
+figure { margin: 0; display: grid; gap: 0.5rem; }
+figure img { width: 100%; max-width: 100%; height: auto; display: block; border: 1px solid var(--line); }
+figcaption { font-size: 0.9rem; color: var(--muted); max-width: var(--col); }
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.pillars { list-style: none; padding: 0; counter-reset: p; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem 2rem; max-width: none; }
+.pillars li { counter-increment: p; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.2rem; }
+.pillars li::before { content: counter(p, upper-roman); font-family: var(--display); font-size: 1.2rem; color: var(--accent); line-height: 1.3; }
+.pillars b { font-family: var(--display); font-size: 1.12rem; display: block; }
+.pillars span { color: var(--muted); font-size: 0.97rem; }
+
+.systems { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.system { background: var(--surface); padding: 1.2rem 1.3rem; display: grid; gap: 0.5rem; align-content: start; }
+.system p { font-size: 0.98rem; }
+
+.docs { list-style: none; padding: 0; gap: 0.9rem; max-width: var(--col); }
+.docs li { display: grid; gap: 0.15rem; }
+.docs .t { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
+.docs .d { color: var(--muted); font-size: 0.97rem; }
+
+.text-project { display: grid; gap: 0.8rem; max-width: var(--col); }
+.text-project + .text-project { padding-top: 2rem; border-top: 1px dashed var(--line); }
+.meta { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); }
+
+.footer { padding-block: 2rem 3rem; font-family: var(--mono); font-size: 0.82rem; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .section { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-block: 2.5rem; }
+  .section > .label { padding-top: 0; }
+  .shots, .systems, .pillars { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding-block: 3rem 2.2rem; }
+}
+</style>
+
+<div class="page">
 
 <header class="hero">
-  <div class="wrap">
-    <p class="kicker">Портфолио</p>
-    <h1>Валентин Погожев</h1>
-    <p class="role">Геймдизайнер · системный и нарративный дизайн</p>
-    <p class="lead">Проектирую игровые системы через ощущения игрока: что он должен чувствовать,
-      какие выборы делать и чем за них платить. Свои идеи довожу до играбельных прототипов
-      с помощью ИИ-инструментов разработки — не жду программиста, чтобы проверить механику.</p>
-    <p class="contacts">
-      <a href="mailto:EMAIL">EMAIL</a> · <a href="https://t.me/TELEGRAM">Telegram</a> · Казахстан, удалённо или офис
-    </p>
+  <p class="eyebrow">Портфолио · Казахстан · удалённо или офис</p>
+  <h1>Валентин <em>Погожев</em></h1>
+  <p class="role">Геймдизайнер — системы, затем нарратив</p>
+  <p class="lead">Проектирую игровые системы от ощущений игрока: что он должен чувствовать, какой выбор
+    делать и чем за него платить. Свои идеи довожу до играбельных прототипов с помощью ИИ-инструментов
+    разработки и проверяю механику в игре, а не на бумаге.</p>
+  <div class="contacts">
+    <span class="item"><span id="mail">vallearcanum@gmail.com</span><button class="copy" id="copy-mail" type="button">копировать</button></span>
+    <span class="item"><a href="https://t.me/Vallege">Telegram: @Vallege</a></span>
   </div>
 </header>
 
-<main class="wrap">
+<section class="section" id="huntfall">
+  <p class="label">Главный проект</p>
+  <div class="body">
+    <div class="prose">
+      <h2>Huntfall <span class="note">рабочее название</span></h2>
+      <p class="status"><span>Жанр: <b>стратегия-менеджмент</b></span><span>Платформа: <b>ПК, одиночная</b></span><span>Начат: <b>сентябрь 2026</b></span><span>Стадия: <b>прототип</b></span></p>
+      <p class="lead">Компания охотников на мистическом Диком Западе — вымышленная Америка конца XIX века.
+        Мир медленно умирает от порчи, и спасти всё невозможно: игрок решает, что защищать,
+        кого отправить и чем пожертвовать.</p>
+    </div>
 
-  <section class="project main-project" id="huntfall">
-    <p class="kicker">Главный проект · в разработке с сентября 2026</p>
-    <h2>Huntfall <span class="muted">(рабочее название)</span></h2>
-    <p class="lead">Стратегия-менеджмент компании охотников на мистическом Диком Западе — вымышленная
-      Америка конца XIX века. Одиночная игра для ПК. Мир медленно умирает от порчи, и спасти всё
-      невозможно: игрок решает, что защищать, кого отправить и чем пожертвовать.</p>
-
-    <figure class="shot wide">
-      <img src="img/map-people.png" alt="Карта региона: город, рудники, железная дорога, реки; окно бойцов компании" loading="lazy">
+    <figure>
+      <img src="img/map-people.png" alt="Карта региона: город, рудники, железная дорога, реки; окно бойцов компании" loading="lazy" width="1280" height="800">
       <figcaption>Карта региона: поселения, предприятия, железная дорога. Время идёт без перемотки,
         пока игрок управляет компанией.</figcaption>
     </figure>
 
-    <h3>Моя роль</h3>
-    <ul>
-      <li>Автор концепции, столпов и геймдизайна: направление механик, желаемые ощущения игрока, содержание.</li>
-      <li>Пишу дизайн-документы и ТЗ по механикам; принимаю финальные решения по каждой системе.</li>
-      <li>Код, математическую модель и подбор чисел баланса по моим целям выполняет ИИ-разработчик
-        (Claude Code). Я проверяю результат в игре и через стенд ботов — массовые прогоны кампаний
-        с отчётом «длина боя, смертность, деньги, нечем заняться».</li>
-    </ul>
+    <div class="prose">
+      <h3>Моя роль</h3>
+      <ul>
+        <li>Автор концепции, столпов и геймдизайна: направление механик, желаемые ощущения игрока, содержание.</li>
+        <li>Пишу дизайн-документы и ТЗ по механикам, принимаю финальное решение по каждой системе.</li>
+        <li>Код, математическую модель и числа баланса по моим целям делает ИИ-разработчик (Claude Code).
+          Результат я проверяю в игре и по отчётам стенда ботов: массовые прогоны кампаний с цифрами —
+          длина боя, смертность, деньги, «нечем заняться».</li>
+      </ul>
+    </div>
 
     <h3>Столпы игры</h3>
     <ol class="pillars">
-      <li><b>Мир умирает, и всё не спасти.</b> Потери неизбежны — игрок выбирает, что удерживать.</li>
-      <li><b>Дел больше, чем времени и людей.</b> Отряды, бойцы и ресурсы всегда в дефиците.</li>
-      <li><b>Знание — оружие.</b> Карта — это то, что игрок разведал; слухи и расследования ведут к боссам.</li>
-      <li><b>Бойцы — личности.</b> Прошлое, черты, отношения, напряжение; их потеря бьёт.</li>
-      <li><b>Стратегия, а не тактика.</b> Игрок решает, как и когда драться, а не кто куда стреляет.</li>
-      <li><b>Всё связано.</b> У задачи несколько решений, мир реагирует на последствия.</li>
+      <li><div><b>Мир умирает, и всё не спасти</b><span>Потери неизбежны — игрок выбирает, что удерживать.</span></div></li>
+      <li><div><b>Дел больше, чем времени и людей</b><span>Отряды, бойцы и ресурсы всегда в дефиците.</span></div></li>
+      <li><div><b>Знание — оружие</b><span>Карта — это то, что игрок разведал; слухи и расследования ведут к боссам.</span></div></li>
+      <li><div><b>Бойцы — личности</b><span>Прошлое, черты, отношения, напряжение; их потеря бьёт.</span></div></li>
+      <li><div><b>Стратегия, а не тактика</b><span>Игрок решает, как и когда драться, а не кто куда стреляет.</span></div></li>
+      <li><div><b>Всё связано</b><span>У задачи несколько решений, мир реагирует на последствия.</span></div></li>
     </ol>
 
     <h3>Ключевые системы</h3>
-    <div class="cards">
-      <article class="card">
-        <h4>Параллельное управление</h4>
-        <p>Нет разделения «база → задание → база». Отряды — процессы мира: идут по маршруту, пока игрок
-          нанимает людей, торгует и берёт новые задания. Главный вопрос цикла — куда распределить
-          время, людей и деньги.</p>
+    <div class="systems">
+      <article class="system">
+        <h3>Параллельное управление</h3>
+        <p>Нет цикла «база → задание → база». Отряды — процессы мира: идут по маршруту, пока игрок
+          нанимает людей, торгует и берёт новые задания. Главный вопрос — куда распределить время,
+          людей и деньги.</p>
       </article>
-      <article class="card">
-        <h4>Автономный бой с приказами</h4>
-        <p>Игрок не управляет каждым выстрелом: рисует группам стрелки движения и линии обороны,
-          задаёт сигналы и смотрит, как бойцы исполняют план сами. Исход читается как следствие
-          подготовки, а не реакции.</p>
+      <article class="system">
+        <h3>Автономный бой по приказам</h3>
+        <p>Игрок не управляет каждым выстрелом. Он рисует группам стрелки движения и линии обороны,
+          задаёт сигналы и смотрит, как бойцы исполняют план сами. Исход — следствие подготовки.</p>
       </article>
-      <article class="card">
-        <h4>Экономика с цепочками</h4>
-        <p>Предприятия на карте производят товары и отправляют их по дорогам; поезд приходит раз
-          в неделю. Набеги и порча рвут цепочки — в городе появляется дефицит, а с ним новые
-          задания и трудные выборы.</p>
+      <article class="system">
+        <h3>Экономика с цепочками</h3>
+        <p>Предприятия производят товары и везут их по дорогам, поезд приходит раз в неделю. Набеги
+          и порча рвут цепочки — в городе дефицит, а с ним новые задания и трудные выборы.</p>
       </article>
-      <article class="card">
-        <h4>Знание и разведка</h4>
-        <p>Игрок видит не мир, а то, что о нём знает. Сколько врагов в лагере — неизвестно, пока
-          не разведаешь. Разведка, слухи и занятия врагов (спят, едят, караулят) меняют план атаки.</p>
+      <article class="system">
+        <h3>Знание и разведка</h3>
+        <p>Игрок видит не мир, а то, что о нём знает. Сколько врагов в лагере, неизвестно до разведки;
+          занятия врагов (спят, едят, караулят) меняют план атаки.</p>
       </article>
     </div>
 
     <div class="shots">
-      <figure class="shot">
-        <img src="img/battle-orders.png" alt="Бой: нарисованная линия обороны и группа бойцов" loading="lazy">
-        <figcaption>Приказ рисуется: линия обороны для группы перед подходом к лагерю врага.</figcaption>
+      <figure>
+        <img src="img/battle-orders.png" alt="Бой: нарисованная линия обороны и группа бойцов" loading="lazy" width="1280" height="800">
+        <figcaption>Приказ рисуется: линия обороны для группы перед лагерем врага.</figcaption>
       </figure>
-      <figure class="shot">
-        <img src="img/battle-vision.png" alt="Бой: обзор бойца с учётом укрытий, карточка бойца" loading="lazy">
-        <figcaption>Обзор бойца закрывают деревья и укрытия; число врагов неизвестно до разведки.</figcaption>
+      <figure>
+        <img src="img/battle-vision.png" alt="Бой: обзор бойца с учётом укрытий и карточка бойца" loading="lazy" width="1280" height="800">
+        <figcaption>Обзор бойца закрывают деревья и укрытия; число врагов неизвестно.</figcaption>
       </figure>
-      <figure class="shot">
-        <img src="img/job.png" alt="Окно задания: охота на мертвяков у дороги, награда и срок" loading="lazy">
-        <figcaption>Задания приходят от сторон мира, у каждого — срок, награда и цена отказа.</figcaption>
+      <figure>
+        <img src="img/job.png" alt="Окно задания: охота на мертвяков у дороги, награда и срок" loading="lazy" width="1280" height="800">
+        <figcaption>Задания приходят от сторон мира: срок, награда, цена отказа.</figcaption>
       </figure>
     </div>
 
-    <h3>Дизайн-документы</h3>
-    <ul>
-      <li><b>Экономика Huntfall v1.3</b> — производство, движение товаров, дефицит и его последствия
-        для поселений; как игрок вмешивается, не превращая игру в торговую стратегию.</li>
-      <li><b>Автономная тактическая система боя v1.4</b> — рисование приказов, агентность игрока,
-        пространство боевой карты, компактные локации.</li>
-      <li>Серия ТЗ по механикам: бойцы, мир, город, события, снаряжение, кампания, живой мир.</li>
-    </ul>
-    <p class="muted">Документы — по запросу.</p>
+    <div class="prose">
+      <h3>Дизайн-документы</h3>
+      <ul class="docs">
+        <li><span class="t">Экономика Huntfall, версия 1.3</span><span class="d">Производство, движение товаров, дефицит и его последствия для поселений; как игрок вмешивается, не превращая игру в торговую стратегию.</span></li>
+        <li><span class="t">Автономная тактическая система боя, версия 1.4</span><span class="d">Рисование приказов, агентность игрока, пространство боевой карты, компактные локации.</span></li>
+        <li><span class="t">Серия ТЗ по механикам</span><span class="d">Бойцы, мир, город, события, снаряжение, кампания, живой мир.</span></li>
+      </ul>
+      <p class="meta">Документы — по запросу.</p>
+    </div>
 
-    <h3>Как я работаю</h3>
-    <p>Каждая механика проходит путь: вопрос о геймплее → варианты → моё решение → прототип в игре →
-      проверка ботами и вручную → правка. Все решения записаны в журнал (их больше 350) — видно, что
-      и почему поменялось. Сначала делается минимальное ядро механики, детали — после проверки, что
-      ядро интересно.</p>
-  </section>
+    <div class="prose">
+      <h3>Как я работаю</h3>
+      <p>Каждая механика проходит один путь: вопрос о геймплее → варианты → моё решение → прототип в игре →
+        проверка ботами и вручную → правка. Решения записаны в журнал, их больше 350, и по нему видно,
+        что и почему менялось. Сначала делается минимальное ядро механики; детали добавляются, когда ядро
+        доказало, что ему интересно.</p>
+    </div>
+  </div>
+</section>
 
-  <section class="project" id="other">
-    <h2>Другие проекты</h2>
-
+<section class="section" id="other">
+  <p class="label">Другие проекты</p>
+  <div class="body">
     <article class="text-project">
       <h3>T3TH3R — интерактивная книга с генеративным повествованием</h3>
-      <p class="muted">Прототип, 2026 · нарративный дизайн</p>
-      <p>Игрок действует свободным текстом, а ИИ пишет развитие сцены. Чтобы история не превратилась
-        в бесконечный чат, я спроектировал драматургическое ядро — <b>лестницу конфликтов</b>:
-        каждая ступень задаёт не готовую сцену, а обязательное драматургическое изменение
-        («контроль героя должен потерпеть поражение»), а способ его достижения зависит от игрока.</p>
+      <p class="meta">Прототип · 2026 · нарративный дизайн</p>
+      <p>Игрок действует свободным текстом, ИИ пишет развитие сцены. Чтобы история не стала бесконечным
+        чатом, я спроектировал драматургическое ядро — <b>лестницу конфликтов</b>. Каждая ступень задаёт
+        не готовую сцену, а обязательное изменение («контроль героя должен потерпеть поражение»);
+        способ его достижения зависит от игрока.</p>
       <ul>
-        <li>Ценностная ось «любовь / истина / контроль» как скрытые метрики, а не очки за выбор:
-          отказался от «+1 к пути», потому что такой выбор фиктивен.</li>
-        <li>Лор мира с учётом статуса раскрытия фактов, подробное описание протагониста,
-          шкала масштаба угроз и каталог типов реализации ступени.</li>
-        <li>Вывод из прототипа: ИИ под нагрузкой пересказывает команду игрока вместо авторства —
-          поэтому нужна отдельная роль «осложнения», которая называет то, чего игрок не сказал сам.</li>
+        <li>Ценности «любовь / истина / контроль» — скрытые метрики. От очков «+1 к пути» за выбор
+          я отказался: такой выбор фиктивен.</li>
+        <li>Лор мира со статусом раскрытия фактов, подробный портрет протагониста, шкала масштаба угроз
+          и каталог способов реализации ступени.</li>
+        <li>Вывод из прототипа: ИИ под нагрузкой пересказывает команду игрока вместо авторства. Поэтому
+          нужна отдельная роль «осложнения», которая называет то, чего игрок не сказал сам.</li>
       </ul>
     </article>
 
     <article class="text-project">
       <h3>Текстовая RPG с ИИ-рассказчиком</h3>
-      <p class="muted">Прототип, 2026 · системный дизайн · проект закрыт</p>
+      <p class="meta">Прототип · 2026 · системный дизайн · проект закрыт</p>
       <p>Фэнтези: молодой маг возвращается домой, до приезда короля семь дней. Главный принцип —
-        <b>игра решает, ИИ только рассказывает</b>: исход считает система, а текст сцены пишется
-        по уже готовому результату.</p>
+        <b>игра решает, ИИ рассказывает</b>: исход считает система, текст сцены пишется по готовому
+        результату.</p>
       <ul>
-        <li>Неделя из слотов действий, финал — бал как большая проверка накопленных навыков,
-          отношений и решений.</li>
-        <li>Проверки d20 с четырьмя исходами; слабый навык не запрещает действие, а меняет, как
-          оно происходит, — одна ситуация даёт разные сцены.</li>
+        <li>Неделя из слотов действий; финал — бал, большая проверка навыков, отношений и решений.</li>
+        <li>Проверки d20 с четырьмя исходами. Слабый навык не запрещает действие, а меняет, как оно
+          проходит: одна ситуация даёт разные сцены.</li>
         <li>«Куб контекста» — случайные обстоятельства (время, место, чем занят персонаж) для
           разнообразия без потери контроля.</li>
-        <li>Остановил проект сам после анализа рынка: каналы распространения и оплаты не подходили
-          под модель игры. Вывод — проверять рынок до разработки, а не после.</li>
+        <li>Проект я остановил сам после анализа рынка: каналы распространения и оплаты не подошли
+          под модель игры. Вывод — проверять рынок до разработки.</li>
       </ul>
     </article>
-  </section>
+  </div>
+</section>
 
-</main>
+<footer class="footer">Валентин Погожев · 2026</footer>
 
-<footer class="wrap footer">
-  <p>Валентин Погожев · 2026</p>
-</footer>
+</div>
 
-</body>
+<script>
+document.getElementById('copy-mail').addEventListener('click', function () {
+  var btn = this, text = document.getElementById('mail').textContent;
+  function done() { btn.textContent = 'скопировано'; setTimeout(function () { btn.textContent = 'копировать'; }, 1600); }
+  function select() { var r = document.createRange(); r.selectNodeContents(document.getElementById('mail')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  try { navigator.clipboard.writeText(text).then(done, select); } catch (e) { select(); }
+});
+</script>
 </html>
